@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/logo.jpg";
 
 const Header = () => {
@@ -51,19 +51,40 @@ const Header = () => {
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">
             <li>
-              <Link to="/">Home</Link>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive ? "text-red-500" : ""
+                }
+              >
+                Home
+              </NavLink>
             </li>
             <li>
-              <Link to="/destination">Destination</Link>
+              <NavLink
+                to="/destination"
+                className={({ isActive }) =>
+                  isActive ? "text-red-500" : ""
+                }
+              >
+                Destination
+              </NavLink>
             </li>
 
             <li>
-              <Link to="/about">About</Link>
+              <NavLink
+                to="/about"
+                className={({ isActive }) =>
+                  isActive ? "text-red-500" : ""
+                }
+              >
+                About
+              </NavLink>
             </li>
           </ul>
         </div>
         <div className="navbar-end">
-          <a className="btn">Button</a>
+          <Link to='/login' className="btn">Login</Link>
         </div>
       </div>
     </nav>
