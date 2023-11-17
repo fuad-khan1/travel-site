@@ -1,17 +1,19 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Contexts/Authentication";
 
 const Registration = () => {
   const [error, setErr] = useState("");
-  const { createUser } = useContext(AuthContext);
+  const {user, createUser } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+
   const handleSignup = (e) => { 
     e.preventDefault();
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
     const confirm = form.confirm.value;
-    console.log(email,password, confirm)
 
 
     setErr("");
@@ -20,18 +22,21 @@ const Registration = () => {
       setErr("password not matched");
       return;
     } else if (password.length < 6) {
-      setErr("password is too short");
+      setErr("password less than 6 character !");
       return;
     }
 
     createUser(email, password)
       .then((res) => {
         const user = res.user;
-        console.log(user)
-        form.reset()
+        form.reset() ;
+        navigate("/login");
+
+        
+
+
       })
       .catch((error) => {
-        console.log(error)
         setErr(error.message);
       });
   };
@@ -41,6 +46,7 @@ const Registration = () => {
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="card flex-shrink-0 w-full max-w-sm shadow-xl bg-base-100">
             <form onSubmit={handleSignup} className="card-body">
+           
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -74,6 +80,12 @@ const Registration = () => {
                   className="input input-bordered"
                   required
                 />
+                 {error && (
+                <div className="text-red-500 my-2">
+                  <p>{error}</p>
+                </div>
+              )}
+              
                 <label className="label">
                   <span>
                     Already Registered?{" "}

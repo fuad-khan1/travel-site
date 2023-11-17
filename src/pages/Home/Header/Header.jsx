@@ -98,7 +98,7 @@ const Header = () => {
         <div className="navbar-end">
           <Link to='/login' className="btn">Login</Link>
           {
-          user && <span> <button onClick={handleLogout}>Sign Out</button></span>
+          user && <span> {user?.disnplayName}{user.photoURL} <button onClick={handleLogout}>Sign Out</button></span>
           }
         </div>
       </div>
